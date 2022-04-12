@@ -8,7 +8,7 @@ export const main = handler(async (event) => {
     TableName: process.env.TABLE_NAME,
     Item: {
       // The attributes of the item to be created
-      userId: "123", // The id of the user
+      userId: event.requestContext.authorizer.iam.cognitoIdentity.identityId,
       pasticheId: uuid.v1(), // A unique uuid
       pastichePath: data.pastichePath,
       promptId: data.promptId,
