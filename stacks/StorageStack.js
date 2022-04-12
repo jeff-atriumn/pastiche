@@ -23,6 +23,9 @@ export default class StorageStack extends sst.Stack {
         long: sst.TableFieldType.NUMBER,
       },
       primaryIndex: { partitionKey: "userId", sortKey: "pasticheId" },
+      globalIndexes: {
+        promptIndex: { partitionKey: "promptId", sortKey: "userId" },
+      },
     });
   }
 }

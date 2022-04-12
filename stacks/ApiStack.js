@@ -23,6 +23,7 @@ export default class ApiStack extends sst.Stack {
         "PUT    /pastiches/{id}": "src/update.main",
         "DELETE /pastiches/{id}": "src/delete.main",
         "GET    /pastiches": "src/list.main",
+        "GET    /pastiche/{id}": "src/pastiche.main",
       },
     });
 
