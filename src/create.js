@@ -10,10 +10,10 @@ export const main = handler(async (event) => {
       // The attributes of the item to be created
       userId: "123", // The id of the user
       pasticheId: uuid.v1(), // A unique uuid
-      pastichePath: data.path,
+      pastichePath: data.pastichePath,
       promptId: data.promptId,
-      lat: data.lat,
-      long: data.long,
+      latitude: data.latitude,
+      longitude: data.longitude,
       createdAt: Date.now(), // Current Unix timestamp
     },
   };

@@ -19,6 +19,9 @@ export default class ApiStack extends sst.Stack {
       routes: {
         "POST   /pastiches": "src/create.main",
         "GET    /pastiches/{id}": "src/get.main",
+        "PUT    /pastiches/{id}": "src/update.main",
+        "DELETE /pastiches/{id}": "src/delete.main",
+        "GET    /pastiches": "src/list.main",
       },
     });
 
