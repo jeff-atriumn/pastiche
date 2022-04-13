@@ -4,21 +4,20 @@ import dynamoDb from "./util/dynamodb";
 export const main = handler(async (event) => {
   const data = JSON.parse(event.body);
   const params = {
-    TableName: process.env.PIECES_TABLE_NAME,
+    TableName: process.env.PROMPTS_TABLE_NAME,
     // 'Key' defines the partition key and sort key of the item to be updated
     Key: {
-      userId: event.requestContext.authorizer.iam.cognitoIdentity.identityId,
-      pieceId: event.pathParameters.id, // The id of the note from the path
+      promptId: event.pathParameters.id, // The id of the note from the path
     },
     // 'UpdateExpression' defines the attributes to be updated
     // 'ExpressionAttributeValues' defines the value in the update expression
     UpdateExpression:
-      "SET piecePath = :piecePath, promptId = :promptId, latitude = :latitude, longitude = :longitude",
+      "SET promptPath = :promptPath, active = :active, userId = :userId",
     ExpressionAttributeValues: {
-      ":piecePath": data.pastichePath || null,
-      ":promptId": data.promptId || null,
-      ":latitude": data.latitude || null,
-      ":longitude": data.longitude || null,
+      ":promptPath": data.promptPath || null,
+      ":active": data.active || null,
+      ":userId":
+        event.requestContext.authorizer.iam.cognitoIdentity.identityId || null,
     },
     // 'ReturnValues' specifies if and how to return the item's attributes,
     // where ALL_NEW returns all attributes of the item after the update; you

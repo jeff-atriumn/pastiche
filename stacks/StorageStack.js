@@ -4,7 +4,8 @@ export default class StorageStack extends sst.Stack {
   // Public reference to the bucket
   bucket;
   // Public reference to the table
-  table;
+  piecesTable;
+  promptsTable;
 
   constructor(scope, id, props) {
     super(scope, id, props);
@@ -13,18 +14,31 @@ export default class StorageStack extends sst.Stack {
     this.bucket = new sst.Bucket(this, "Uploads");
 
     // Create the DynamoDB table
-    this.table = new sst.Table(this, "Pastiches", {
+    this.piecesTable = new sst.Table(this, "Pieces", {
       fields: {
         userId: sst.TableFieldType.STRING,
-        pasticheId: sst.TableFieldType.STRING,
-        pastichePath: sst.TableFieldType.STRING,
+        pieceId: sst.TableFieldType.STRING,
+        piecePath: sst.TableFieldType.STRING,
         promptId: sst.TableFieldType.STRING,
         lat: sst.TableFieldType.NUMBER,
         long: sst.TableFieldType.NUMBER,
       },
-      primaryIndex: { partitionKey: "userId", sortKey: "pasticheId" },
+      primaryIndex: { partitionKey: "userId", sortKey: "pieceId" },
       globalIndexes: {
         promptIndex: { partitionKey: "promptId", sortKey: "userId" },
+      },
+    });
+
+    this.promptsTable = new sst.Table(this, "Prompts", {
+      fields: {
+        promptId: sst.TableFieldType.STRING,
+        promptPath: sst.TableFieldType.STRING,
+        active: sst.TableFieldType.NUMBER,
+        userId: sst.TableFieldType.STRING,
+      },
+      primaryIndex: { partitionKey: "promptId", sortKey: "active" },
+      globalIndexes: {
+        promptIndex: { partitionKey: "active" },
       },
     });
   }

@@ -3,11 +3,10 @@ import dynamoDb from "./util/dynamodb";
 
 export const main = handler(async (event) => {
   const params = {
-    TableName: process.env.PIECES_TABLE_NAME,
+    TableName: process.env.PROMPTS_TABLE_NAME,
     // 'Key' defines the partition key and sort key of the item to be retrieved
     Key: {
-      userId: event.requestContext.authorizer.iam.cognitoIdentity.identityId,
-      pieceId: event.pathParameters.id, // The id of the note from the path
+      promptId: event.pathParameters.id,
     },
   };
 

@@ -7,28 +7,34 @@ export default class ApiStack extends sst.Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
 
-    const { table } = props;
+    const { piecesTable, promptsTable } = props;
 
     // Create the API
     this.api = new sst.Api(this, "Api", {
       defaultAuthorizationType: "AWS_IAM",
       defaultFunctionProps: {
         environment: {
-          TABLE_NAME: table.tableName,
+          PIECES_TABLE_NAME: piecesTable.tableName,
+          PROMPTS_TABLE_NAME: promptsTable.tableName,
         },
       },
       routes: {
-        "POST   /pastiches": "src/create.main",
-        "GET    /pastiches/{id}": "src/get.main",
-        "PUT    /pastiches/{id}": "src/update.main",
-        "DELETE /pastiches/{id}": "src/delete.main",
-        "GET    /pastiches": "src/list.main",
+        "POST   /piece": "src/create.main",
+        "GET    /piece/{id}": "src/get.main",
+        "PUT    /piece/{id}": "src/update.main",
+        "DELETE /piece/{id}": "src/delete.main",
+        "GET    /pieces": "src/list.main",
+        "POST   /prompt": "src/create-prompt.main",
+        "GET    /prompt/{id}": "src/get-prompt.main",
+        "PUT    /prompt/{id}": "src/update-prompt.main",
+        "DELETE /prompt/{id}": "src/delete-prompt.main",
+        "GET    /prompts": "src/list-prompts.main",
         "GET    /pastiche/{id}": "src/pastiche.main",
       },
     });
 
     // Allow the API to access the table
-    this.api.attachPermissions([table]);
+    this.api.attachPermissions([piecesTable, promptsTable]);
 
     // Show the API endpoint in the output
     this.addOutputs({
