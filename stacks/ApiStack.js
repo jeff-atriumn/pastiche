@@ -23,7 +23,7 @@ export default class ApiStack extends sst.Stack {
         "GET    /piece/{id}": "src/get.main",
         "PUT    /piece/{id}": "src/update.main",
         "DELETE /piece/{id}": "src/delete.main",
-        "GET    /pieces": "src/list.main",
+        "GET    /mypieces": "src/list.main",
         "POST   /prompt": "src/create-prompt.main",
         "GET    /prompt/{id}": "src/get-prompt.main",
         "PUT    /prompt/{id}": "src/update-prompt.main",

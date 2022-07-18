@@ -23,22 +23,26 @@ export default class StorageStack extends sst.Stack {
         lat: sst.TableFieldType.NUMBER,
         long: sst.TableFieldType.NUMBER,
       },
-      primaryIndex: { partitionKey: "userId", sortKey: "pieceId" },
+      primaryIndex: { partitionKey: "pieceId", sortKey: "userId" },
       globalIndexes: {
-        promptIndex: { partitionKey: "promptId", sortKey: "userId" },
+        pieceIndex: { partitionKey: "pieceId" },
+        userIndex: { partitionKey: "userId" },
+        promptIndex: { partitionKey: "promptId" },
       },
     });
 
     this.promptsTable = new sst.Table(this, "Prompts", {
       fields: {
         promptId: sst.TableFieldType.STRING,
+        promptName: sst.TableFieldType.STRING,
         promptPath: sst.TableFieldType.STRING,
         active: sst.TableFieldType.NUMBER,
         userId: sst.TableFieldType.STRING,
       },
-      primaryIndex: { partitionKey: "promptId", sortKey: "active" },
+      primaryIndex: { partitionKey: "promptId", sortKey: "userId" },
       globalIndexes: {
-        promptIndex: { partitionKey: "active" },
+        promptIndex: { partitionKey: "promptId" },
+        activeIndex: { partitionKey: "active" },
       },
     });
   }

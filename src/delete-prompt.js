@@ -6,6 +6,7 @@ export const main = handler(async (event) => {
     TableName: process.env.PROMPTS_TABLE_NAME,
 
     Key: {
+      userId: event.requestContext.authorizer.iam.cognitoIdentity.identityId,
       promptId: event.pathParameters.id,
     },
   };

@@ -5,23 +5,17 @@ export const main = handler(async (event) => {
   const data = JSON.parse(event.body);
   const params = {
     TableName: process.env.PROMPTS_TABLE_NAME,
-    // 'Key' defines the partition key and sort key of the item to be updated
     Key: {
-      promptId: event.pathParameters.id, // The id of the note from the path
+      userId: event.requestContext.authorizer.iam.cognitoIdentity.identityId,
+      promptId: event.pathParameters.id,
     },
-    // 'UpdateExpression' defines the attributes to be updated
-    // 'ExpressionAttributeValues' defines the value in the update expression
     UpdateExpression:
-      "SET promptPath = :promptPath, active = :active, userId = :userId",
+      "SET promptPath = :promptPath, promptName = :promptName, active = :active",
     ExpressionAttributeValues: {
       ":promptPath": data.promptPath || null,
+      ":promptName": data.promptName || null,
       ":active": data.active || null,
-      ":userId":
-        event.requestContext.authorizer.iam.cognitoIdentity.identityId || null,
     },
-    // 'ReturnValues' specifies if and how to return the item's attributes,
-    // where ALL_NEW returns all attributes of the item after the update; you
-    // can inspect 'result' below to see how it works with different settings
     ReturnValues: "ALL_NEW",
   };
 

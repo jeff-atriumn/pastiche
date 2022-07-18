@@ -10,6 +10,7 @@ export const main = handler(async (event) => {
       // The attributes of the item to be created
       promptId: uuid.v1(), // A unique uuid
       promptPath: data.promptPath,
+      promptName: data.promptName,
       active: data.active,
       userId: event.requestContext.authorizer.iam.cognitoIdentity.identityId,
       createdAt: Date.now(), // Current Unix timestamp
