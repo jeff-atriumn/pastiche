@@ -21,12 +21,10 @@ export default class ApiStack extends sst.Stack {
       routes: {
         "POST   /piece": "src/create.main",
         "GET    /piece/{id}": "src/get.main",
-        "PUT    /piece/{id}": "src/update.main",
         "DELETE /piece/{id}": "src/delete.main",
         "GET    /mypieces": "src/list.main",
         "POST   /prompt": "src/create-prompt.main",
         "GET    /prompt/{id}": "src/get-prompt.main",
-        "PUT    /prompt/{id}": "src/update-prompt.main",
         "DELETE /prompt/{id}": "src/delete-prompt.main",
         "GET    /prompts": "src/list-prompts.main",
         "GET    /pastiche/{id}": "src/pastiche.main",
